@@ -5,7 +5,7 @@ calendar, demand signals (page views, carts, orders), stock levels and competito
 machine-learning model for the revenue-maximising price, keeps it inside business guardrails, and tells
 you *why* in plain English.
 
-Major-project upgrade of the *Dynamic Pricing Engine* mini project (FastAPI + React + MySQL).
+Major-project upgrade of the *Dynamic Pricing Engine* mini project (FastAPI + React; SQLite by default, MySQL optional).
 
 | | |
 |---|---|
@@ -23,13 +23,17 @@ You need **Python 3.10 – 3.12** and **Node.js 18+**. Open two terminals.
 **Terminal 1 – backend**
 ```bash
 cd backend
+# Create your local environment file (PowerShell / Windows)
+copy ..\.env.example .env
+# On macOS/Linux, use: cp ../.env.example .env
 python -m venv venv
 venv\Scripts\activate            # Windows      (Mac/Linux: source venv/bin/activate)
 pip install -r ../requirements.txt
 python run.py
 ```
-> **Sign in:** the first run creates an admin account **`admin` / `admin123`** (shown on the login screen). You are
-> forced to change the password straight away. Set `ADMIN_PASSWORD` in `backend/.env` to choose your own.
+> **First login:** if you leave `ADMIN_PASSWORD` unset, the first run creates **`admin` / `admin123`** and requires
+> you to change that password. If you set your own `ADMIN_USERNAME` and `ADMIN_PASSWORD` in `backend/.env`,
+> those credentials are used and the forced password-change prompt is skipped. Never commit `backend/.env`.
 
 **Terminal 2 – frontend**
 ```bash
@@ -44,13 +48,12 @@ Open **http://localhost:3000** (API docs: http://localhost:8000/docs).
 > shows "Training model…" until it finishes. The trained model is cached in `backend/models/`.
 > Demo products and 48 hours of price/sales history are created on first run so every chart has data.
 
-### Optional
+### Optional: export a synthetic training dataset
+Run this from inside `backend/` after installing the backend dependencies:
 ```bash
-python train_model.py                      # retrain from the command line and print the comparison table
-python generate_report_assets.py           # real figures + tables for your report  ->  docs/report_assets/
-pip install -r ../requirements-dev.txt && pytest    # 61 tests
-python ../data/synthetic_data.py --export data.csv  # export the ML training dataset
+python ../data/synthetic_data.py --export training_data.csv --rows 5000
 ```
+This creates a CSV file in the current `backend/` directory.
 
 ---
 
@@ -141,17 +144,25 @@ docs/REPORT_GUIDE.md       maps the base paper to the code + viva preparation
 | `GET /api/model/info` · `/metrics` · `/feature-importance` · `/latency` | evaluation |
 | `POST /api/model/retrain` · `POST /api/model/select` | retrain / switch model |
 | `POST /auth/login` · `GET /auth/me` · `POST /auth/change-password` | sign in / session / password |
-| `GET/POST/PUT/DELETE /auth/users` | user management (admin) |
+| `POST /auth/register` | public registration; new accounts are always **Viewer** |
+| `GET/POST/PUT/DELETE /auth/users` | user management (admin; create/update/delete users) |
 | `GET /health` · `GET /api/config` | system (public) |
 
 ---
 
 ## ⚙️ Configuration
 
-Copy `.env.example` to `backend/.env` – every value is optional.
+Copy the root `.env.example` file to `backend/.env` and edit the values you need. The defaults work with local SQLite.
 
-**Use MySQL** (as in the report): create the database, then set
-`DATABASE_URL=mysql+pymysql://root:password@localhost:3306/smart_revenue`. Tables are created automatically.
+**Optional MySQL setup:** create a database first, then set the following in `backend/.env` (replace the username/password):
+```env
+DATABASE_URL=mysql+pymysql://root:yourpassword@localhost:3306/smart_revenue
+```
+The MySQL server must be running. The required PyMySQL driver is included in `requirements.txt`; tables are created automatically.
+
+**Admin credentials:** by default, the first startup creates `admin` / `admin123` and flags it for a password change. To choose credentials before the first startup, uncomment and set `ADMIN_USERNAME` and `ADMIN_PASSWORD` in `backend/.env`. When `ADMIN_PASSWORD` is set, the app does not force a first-login password change.
+
+**Frontend API URL:** the frontend defaults to `http://localhost:8000`. Only if your backend runs at another address, create `frontend/.env` using `frontend/.env.example` and set `REACT_APP_API_URL`.
 
 **Live weather** uses Open-Meteo (free, no key). If the API is unreachable the app falls back to
 *deterministic simulated weather* (marked "simulated" in the UI) so it never breaks offline.
@@ -178,5 +189,4 @@ Change `STORE_CITY` (Bengaluru, Mumbai, Delhi, Chennai, Hyderabad, Kolkata, Pune
 | Frontend: "Can't reach the backend" | start the backend first; or set `REACT_APP_API_URL` |
 | Port 8000/3000 busy | stop the other process, or `uvicorn app.main:app --port 8010` + `REACT_APP_API_URL` |
 | `pytest` TypeError about `app=` | `pip install "httpx<0.28"` (already pinned in requirements-dev.txt) |
-#   S m a r t - R e v e n u e - O p t i m i z e r  
- 
+# Smart-Revenue-Optimizer
