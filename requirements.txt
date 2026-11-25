@@ -1,5 +1,4 @@
 # Smart Revenue Optimizer - backend dependencies
-# (the web stack keeps the exact versions from your minor project)
 fastapi==0.104.1
 uvicorn==0.24.0
 sqlalchemy==2.0.23
@@ -9,7 +8,7 @@ python-multipart==0.0.6
 python-dotenv==1.0.0
 requests==2.31.0
 
-# machine learning (re-added for the major project)
+# machine learning 
 numpy>=1.24
 pandas>=2.0
 scikit-learn>=1.3

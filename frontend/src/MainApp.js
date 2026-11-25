@@ -170,7 +170,7 @@ export default function MainApp({ user, onLogout, onUserChange }) {
 
       <footer className="footer">
         <div className="footer-content">
-          <p className="footer-text">Smart Revenue Optimizer • Machine Learning Major Project</p>
+          <p className="footer-text">Smart Revenue Optimizer • Machine Learning Project</p>
           <p className="footer-subtext">React + FastAPI + scikit-learn • Explainable real-time price optimisation</p>
           <div className="footer-links">
             <span className="api-status"><span className={`status-dot ${online ? 'online' : ''}`} /> API: {API_BASE}</span>

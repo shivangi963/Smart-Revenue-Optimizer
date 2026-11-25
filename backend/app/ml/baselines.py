@@ -14,8 +14,7 @@ def static_ratio(raw: pd.DataFrame) -> np.ndarray:
 
 
 def rule_based_ratio(raw: pd.DataFrame) -> np.ndarray:
-    """Hand-written if/else rules - what a store manager might configure.
-    Same spirit as the minor project's heuristic engine."""
+    """Hand-written if/else rules - what a store manager might configure."""
     cat = raw["category"].map(category_key).to_numpy()
     h = raw["hour_of_day"].to_numpy(float)
     temp = raw["temperature"].to_numpy(float)

@@ -1,4 +1,4 @@
-"""Background scheduler (the 'workers' box in the minor-project architecture).
+"""Background scheduler.
 Every N seconds: simulate storefront traffic -> re-price all products -> log weather."""
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""Demand/context signals (the /signals ingestion API from the minor-project report)."""
+"""Demand/context signals."""
 from __future__ import annotations
 
 from typing import List

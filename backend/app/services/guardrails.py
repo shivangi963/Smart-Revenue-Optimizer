@@ -1,5 +1,4 @@
-"""Guardrails: P = min(Pmax, max(Pmin, P*)) from the paper, extended with the
-constraints listed in the minor-project report (margin floor, step size,
+"""Guardrails: P = min(Pmax, max(Pmin, P*)) from the paper (margin floor, step size,
 volatility cap) and admin-defined rules (/rules API).
 
 Rule resolution: a rule scoped to a *product* beats a *category* rule, which

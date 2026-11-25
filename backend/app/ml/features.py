@@ -3,7 +3,7 @@
 The same function is used for training and for live inference, so there is no
 train/serve skew.  Features follow the table in the base paper (demand, inventory,
 time, weather, event, product) plus the interaction terms mentioned in the
-minor-project report (e.g. temperature x category).
+paper (e.g. temperature x category).
 """
 from __future__ import annotations
 
