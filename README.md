@@ -1,4 +1,4 @@
-# 🎯 Smart Revenue Optimizer
+#  Smart Revenue Optimizer
 
 Real-time, **explainable dynamic pricing** for e-commerce. The system reads live weather, the holiday
 calendar, demand signals (page views, carts, orders), stock levels and competitor prices, asks a trained
@@ -16,7 +16,7 @@ Major-project upgrade of the *Dynamic Pricing Engine* mini project (FastAPI + Re
 
 ---
 
-## 🚀 Quick start
+##  Quick start
 
 You need **Python 3.10 – 3.12** and **Node.js 18+**. Open two terminals.
 
@@ -57,7 +57,7 @@ This creates a CSV file in the current `backend/` directory.
 
 ---
 
-## 🧭 What you can do in the UI
+##  What you can do in the UI
 
 | Tab | Purpose |
 |---|---|
@@ -70,7 +70,7 @@ This creates a CSV file in the current `backend/` directory.
 
 ---
 
-## 🔐 Login & roles
+##  Login & roles
 
 | Role | Can do |
 |---|---|
@@ -86,7 +86,7 @@ This creates a CSV file in the current `backend/` directory.
 * Swagger (`/docs`) has an **Authorize** button - sign in there to try the API.
 * Limitation: the token is kept in the browser's localStorage; a production deployment should use HTTPS and httpOnly cookies.
 
-## 🏗️ How it works
+##  How it works
 
 ```
  Storefront signals ─┐                               ┌─► price history, audit trail
@@ -126,7 +126,7 @@ docs/REPORT_GUIDE.md       maps the base paper to the code + viva preparation
 
 ---
 
-## 🔌 API (full interactive docs at `/docs`)
+##  API (full interactive docs at `/docs`)
 
 | Endpoint | |
 |---|---|
@@ -150,7 +150,7 @@ docs/REPORT_GUIDE.md       maps the base paper to the code + viva preparation
 
 ---
 
-## ⚙️ Configuration
+##  Configuration
 
 Copy the root `.env.example` file to `backend/.env` and edit the values you need. The defaults work with local SQLite.
 
@@ -172,7 +172,7 @@ Change `STORE_CITY` (Bengaluru, Mumbai, Delhi, Chennai, Hyderabad, Kolkata, Pune
 
 ---
 
-## ⚠️ Honest limitations
+##  Honest limitations
 * The ML models are trained on **synthetic** data from an assumed demand model (no real shop is attached), so
   the reported lift is *relative to that world*, not a field measurement. The architecture is ready for real
   data: feed `/signals` + real sales, then retrain.
@@ -180,7 +180,7 @@ Change `STORE_CITY` (Bengaluru, Mumbai, Delhi, Chennai, Hyderabad, Kolkata, Pune
   counterfactual.
 * Price elasticity is assumed linear; real catalogues need per-product elasticity learning (A/B price tests).
 
-## 🛠️ Troubleshooting
+##  Troubleshooting
 | Problem | Fix |
 |---|---|
 | `ModuleNotFoundError: app` | run `python run.py` from inside `backend/` |
