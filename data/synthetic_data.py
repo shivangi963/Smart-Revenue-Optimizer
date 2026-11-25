@@ -4,7 +4,6 @@
        python synthetic_data.py --push --count 30 --interval 1
 
 2) Export the synthetic *training dataset* used by the ML models as a CSV
-   (handy for the project report / viva):
        python synthetic_data.py --export training_data.csv --rows 5000
 """
 import argparse
@@ -54,7 +53,7 @@ def push_signals(api: str, count: int, interval: float, headers: dict) -> None:
 def export_dataset(path: str, rows: int, seed: int) -> None:
     sys.path.insert(0, str(BACKEND))
     import numpy as np
-    from app.ml import world
+    from backend.app.ml import world
 
     rng = np.random.default_rng(seed)
     df = world.add_labels(world.sample_raw_contexts(rows, rng), rng)
