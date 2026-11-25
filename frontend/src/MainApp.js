@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import './App.css';
 import { API_BASE, api } from './api';
-import { modelLabel, setCurrency } from './utils/format';
+import { setCurrency } from './utils/format';
 import KpiStrip from './components/KpiStrip';
 import ProductSelector from './components/ProductSelector';
 import PriceAnalysis from './components/PriceAnalysis';

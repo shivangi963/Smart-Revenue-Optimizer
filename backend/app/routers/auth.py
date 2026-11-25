@@ -13,8 +13,7 @@ from ..database import get_db
 from ..models import User
 from ..schemas import ChangePassword, UserCreate, UserOut, UserUpdate
 from ..security import (
-    DEFAULT_ADMIN_PASSWORD, create_token, dummy_verify, get_current_user, hash_password, login_throttle,
-    require_admin, verify_password,
+    create_token, dummy_verify, get_current_user, hash_password, login_throttle, require_admin, verify_password,
 )
 from ..utils.timeutils import utcnow
 from pydantic import BaseModel
@@ -32,16 +31,29 @@ def _session(user: User) -> dict:
             "user": UserOut.model_validate(user).model_dump(mode="json")}
 
 
+
 @router.get("/status")
 def auth_status(db: Session = Depends(get_db)):
-    """Public. Lets the login page know whether to show the demo-credentials hint."""
+    """Public. Reports whether the initial admin password needs changing."""
     if not settings.auth_enabled:
         return {"auth_enabled": False, "default_credentials": False}
-    default_admin = (db.query(User).filter(User.role == "admin", User.is_active.is_(True),
-                                           User.must_change_password.is_(True)).first())
-    return {"auth_enabled": True, "default_credentials": bool(default_admin),
-            "hint_username": default_admin.username if default_admin else None,
-            "hint_password": DEFAULT_ADMIN_PASSWORD if default_admin else None}
+
+    default_admin = (
+        db.query(User)
+        .filter(
+            User.role == "admin",
+            User.is_active.is_(True),
+            User.must_change_password.is_(True),
+        )
+        .first()
+    )
+
+    return {
+        "auth_enabled": True,
+        "default_credentials": bool(default_admin),
+        "hint_username": default_admin.username if default_admin else None,
+    }
+
 
 
 @router.post("/login")

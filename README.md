@@ -5,7 +5,6 @@ calendar, demand signals (page views, carts, orders), stock levels and competito
 machine-learning model for the revenue-maximising price, keeps it inside business guardrails, and tells
 you *why* in plain English.
 
-Major-project upgrade of the *Dynamic Pricing Engine* mini project (FastAPI + React; SQLite by default, MySQL optional).
 
 | | |
 |---|---|
@@ -97,7 +96,7 @@ This creates a CSV file in the current `backend/` directory.
                               Demand model (units vs price) ──► revenue curve, confidence, expected lift
 ```
 
-* **Market world** (`app/ml/world.py`) – no real sales logs exist, so (as in the minor-project report) a latent
+* **Market world** (`app/ml/world.py`) – no real sales logs exist, so a latent
   demand model generates training data: `D(p) = V·max(0, 1 − p/(2·b·g(x)))`, where `g(x)` combines time, season,
   weather, events, demand, stock and competition. Revenue peaks at `p* = b·g(x)`; the models only ever see
   observable features + noisy labels.
@@ -121,7 +120,6 @@ backend/app/
 backend/tests/        unit + API + browser-free integration tests
 frontend/src/components/   Dashboard, Simulator, History, Model Analytics, Admin, Currency
 data/synthetic_data.py     push signals to the API / export the training dataset
-docs/REPORT_GUIDE.md       maps the base paper to the code + viva preparation
 ```
 
 ---
@@ -188,5 +186,5 @@ Change `STORE_CITY` (Bengaluru, Mumbai, Delhi, Chennai, Hyderabad, Kolkata, Pune
 | Header says "Training model…" for long | first run only; check the backend terminal; or run `python train_model.py` |
 | Frontend: "Can't reach the backend" | start the backend first; or set `REACT_APP_API_URL` |
 | Port 8000/3000 busy | stop the other process, or `uvicorn app.main:app --port 8010` + `REACT_APP_API_URL` |
-| `pytest` TypeError about `app=` | `pip install "httpx<0.28"` (already pinned in requirements-dev.txt) |
+| `pytest` TypeError about `app=` | `pip install "httpx<0.28"`|
 # Smart-Revenue-Optimizer

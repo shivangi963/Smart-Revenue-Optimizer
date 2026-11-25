@@ -252,6 +252,10 @@ def test_auth_can_be_disabled_for_local_development(anon, monkeypatch):
     assert anon.post("/auth/login", data={"username": "a", "password": "b"}).status_code in (400, 401)
 
 
+
 def test_status_endpoint_reveals_nothing_when_password_was_set(anon):
-    assert anon.get("/auth/status").json() == {"auth_enabled": True, "default_credentials": False,
-                                               "hint_username": None, "hint_password": None}
+    assert anon.get("/auth/status").json() == {
+        "auth_enabled": True,
+        "default_credentials": False,
+        "hint_username": None,
+    }

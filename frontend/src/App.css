@@ -611,8 +611,6 @@ body {
   }
 }
 
-/* (fixed: the media query above was never closed in the minor project, which made the
-   weather/holiday styles below apply only on narrow screens) */
 .weather-card, .holidays-card {
     background: var(--bg-secondary);
     border-radius: 10px;

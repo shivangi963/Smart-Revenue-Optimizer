@@ -172,24 +172,12 @@ export default function Login({ onLoggedIn, notice }) {
 
         {mode === 'login' && status?.default_credentials && (
           <div className="banner info" style={{ marginTop: '1.25rem', marginBottom: 0 }}>
-            <strong>First run:</strong> demo account{' '}
-            <code>{status.hint_username}</code> /{' '}
-            <code>{status.hint_password}</code>.
-            You will be asked to change the password after signing in.
-
-            <div>
-              <button
-                type="button"
-                className="btn secondary small"
-                style={{ marginTop: '.5rem' }}
-                onClick={() => {
-                  setUsername(status.hint_username);
-                  setPassword(status.hint_password);
-                }}
-              >
-                Fill in
-              </button>
-            </div>
+            <strong>Initial administrator setup</strong>
+            <p>
+              Sign in using the administrator credentials configured during setup.
+              You will be asked to change the password if the default credentials
+              are being used.
+            </p>
           </div>
         )}
       </form>
